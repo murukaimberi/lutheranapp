@@ -1,0 +1,11 @@
+export enum ContributionType {
+  REGISTRATION = 'REGISTRATION',
+
+  ANNUAL_DUES = 'ANNUAL_DUES',
+
+  PLEDGES = 'PLEDGES',
+
+  TITHE = 'TITHE',
+
+  HAVERST = 'HAVERST',
+}

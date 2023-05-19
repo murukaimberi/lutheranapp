@@ -1,0 +1,204 @@
+<div>
+  <h2 id="page-heading" data-cy="CongregantHeading">
+    <span lutheranTranslate="lutheranappApp.congregant.home.title">Congregants</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span lutheranTranslate="lutheranappApp.congregant.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-congregant"
+        [routerLink]="['/congregant/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span lutheranTranslate="lutheranappApp.congregant.home.createLabel"> Create a new Congregant </span>
+      </button>
+    </div>
+  </h2>
+
+  <lutheran-alert-error></lutheran-alert-error>
+
+  <lutheran-alert></lutheran-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="congregants?.length === 0">
+    <span lutheranTranslate="lutheranappApp.congregant.home.notFound">No Congregants found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="congregants && congregants.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr lutheranSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" lutheranSortBy="id">
+            <div class="d-flex">
+              <span lutheranTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="title">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.title">Title</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="firstNames">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.firstNames">First Names</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="surname">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.surname">Surname</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="email">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.email">Email</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="dob">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.dob">Dob</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="gender">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.gender">Gender</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="profession">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.profession">Profession</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="maritalStatus">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.maritalStatus">Marital Status</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="profilePicture">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.profilePicture">Profile Picture</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="marriageHistory.id">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.marriageHistory">Marriage History</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="baptismHistory.id">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.baptismHistory">Baptism History</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="user.login">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.congregant.user">User</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let congregant of congregants; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/congregant', congregant.id, 'view']">{{ congregant.id }}</a>
+          </td>
+          <td>{{ congregant.title }}</td>
+          <td>{{ congregant.firstNames }}</td>
+          <td>{{ congregant.surname }}</td>
+          <td>{{ congregant.email }}</td>
+          <td>{{ congregant.dob | formatMediumDate }}</td>
+          <td lutheranTranslate="{{ 'lutheranappApp.Gender.' + congregant.gender }}">{{ congregant.gender }}</td>
+          <td>{{ congregant.profession }}</td>
+          <td lutheranTranslate="{{ 'lutheranappApp.MaritalStatus.' + congregant.maritalStatus }}">{{ congregant.maritalStatus }}</td>
+          <td>
+            <a *ngIf="congregant.profilePicture" (click)="openFile(congregant.profilePicture, congregant.profilePictureContentType)">
+              <img
+                [src]="'data:' + congregant.profilePictureContentType + ';base64,' + congregant.profilePicture"
+                style="max-height: 30px"
+                alt="congregant image"
+              />
+            </a>
+            <span *ngIf="congregant.profilePicture"
+              >{{ congregant.profilePictureContentType }}, {{ byteSize(congregant.profilePicture) }}</span
+            >
+          </td>
+          <td>
+            <div *ngIf="congregant.marriageHistory">
+              <a [routerLink]="['/marriage-history', congregant.marriageHistory.id, 'view']">{{ congregant.marriageHistory.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="congregant.baptismHistory">
+              <a [routerLink]="['/baptism-history', congregant.baptismHistory.id, 'view']">{{ congregant.baptismHistory.id }}</a>
+            </div>
+          </td>
+          <td>
+            {{ congregant.user?.login }}
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/congregant', congregant.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" lutheranTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/congregant', congregant.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" lutheranTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(congregant)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" lutheranTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="congregants && congregants.length > 0">
+    <div class="d-flex justify-content-center">
+      <lutheran-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></lutheran-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

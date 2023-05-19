@@ -1,0 +1,47 @@
+{
+  "applications": ["lutheranapp"],
+  "changelogDate": "20230518162959",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "contribution",
+  "fields": [
+    {
+      "fieldName": "contributionType",
+      "fieldType": "ContributionType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "REGISTRATION,ANNUAL_DUES,PLEDGES,TITHE,HAVERST"
+    },
+    {
+      "fieldName": "frequency",
+      "fieldType": "Frequency",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "YEARLY,LUMP_SUM,MONTHLY"
+    },
+    {
+      "fieldName": "month",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "amount",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Contribution",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "surname",
+      "otherEntityName": "congregant",
+      "otherEntityRelationshipName": "contributions",
+      "relationshipName": "congregant",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

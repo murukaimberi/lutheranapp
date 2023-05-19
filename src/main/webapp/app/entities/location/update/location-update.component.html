@@ -1,0 +1,126 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="lutheran-location-heading"
+        data-cy="LocationCreateUpdateHeading"
+        lutheranTranslate="lutheranappApp.location.home.createOrEditLabel"
+      >
+        Create or edit a Location
+      </h2>
+
+      <div>
+        <lutheran-alert-error></lutheran-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" lutheranTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.location.streetAddress" for="field_streetAddress"
+            >Street Address</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="streetAddress"
+            id="field_streetAddress"
+            data-cy="streetAddress"
+            formControlName="streetAddress"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.location.postalCode" for="field_postalCode">Postal Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="postalCode"
+            id="field_postalCode"
+            data-cy="postalCode"
+            formControlName="postalCode"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.location.city" for="field_city">City</label>
+          <input type="text" class="form-control" name="city" id="field_city" data-cy="city" formControlName="city" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.location.stateProvince" for="field_stateProvince"
+            >State Province</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="stateProvince"
+            id="field_stateProvince"
+            data-cy="stateProvince"
+            formControlName="stateProvince"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.location.country" for="field_country">Country</label>
+          <select
+            class="form-control"
+            id="field_country"
+            data-cy="country"
+            name="country"
+            formControlName="country"
+            [compareWith]="compareCountry"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="countryOption" *ngFor="let countryOption of countriesSharedCollection">{{ countryOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.location.congregant" for="field_congregant">Congregant</label>
+          <select
+            class="form-control"
+            id="field_congregant"
+            data-cy="congregant"
+            name="congregant"
+            formControlName="congregant"
+            [compareWith]="compareCongregant"
+          >
+            <option *ngIf="editForm.get(['congregant'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="congregantOption" *ngFor="let congregantOption of congregantsSharedCollection">
+              {{ congregantOption.surname }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['congregant'])!.invalid && (editForm.get(['congregant'])!.dirty || editForm.get(['congregant'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['congregant'])?.errors?.required"
+            lutheranTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

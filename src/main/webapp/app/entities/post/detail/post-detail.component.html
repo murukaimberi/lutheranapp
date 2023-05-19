@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="post">
+      <h2 data-cy="postDetailsHeading"><span lutheranTranslate="lutheranappApp.post.detail.title">Post</span></h2>
+
+      <hr />
+
+      <lutheran-alert-error></lutheran-alert-error>
+
+      <lutheran-alert></lutheran-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span lutheranTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ post.id }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.post.title">Title</span></dt>
+        <dd>
+          <span>{{ post.title }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.post.subtitle">Subtitle</span></dt>
+        <dd>
+          <span>{{ post.subtitle }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.post.description">Description</span></dt>
+        <dd>
+          <span>{{ post.description }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.post.postedDate">Posted Date</span></dt>
+        <dd>
+          <span>{{ post.postedDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.post.image">Image</span></dt>
+        <dd>
+          <div *ngIf="post.image">
+            <a (click)="openFile(post.image, post.imageContentType)">
+              <img [src]="'data:' + post.imageContentType + ';base64,' + post.image" style="max-width: 100%" alt="post image" />
+            </a>
+            {{ post.imageContentType }}, {{ byteSize(post.image) }}
+          </div>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.post.congregant">Congregant</span></dt>
+        <dd>
+          <div *ngIf="post.congregant">
+            <a [routerLink]="['/congregant', post.congregant.id, 'view']">{{ post.congregant.surname }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

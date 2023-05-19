@@ -1,0 +1,28 @@
+{
+  "lutheranappApp": {
+    "contribution": {
+      "home": {
+        "title": "Contributions",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Contribution erstellen",
+        "createOrEditLabel": "Contribution erstellen oder bearbeiten",
+        "notFound": "Keine Contributions gefunden"
+      },
+      "created": "Contribution erstellt mit ID {{ param }}",
+      "updated": "Contribution aktualisiert mit ID {{ param }}",
+      "deleted": "Contribution gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Contribution {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Contribution"
+      },
+      "id": "ID",
+      "contributionType": "Contribution Type",
+      "frequency": "Frequency",
+      "month": "Month",
+      "amount": "Amount",
+      "congregant": "Congregant"
+    }
+  }
+}

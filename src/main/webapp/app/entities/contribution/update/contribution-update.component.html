@@ -1,0 +1,164 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="lutheran-contribution-heading"
+        data-cy="ContributionCreateUpdateHeading"
+        lutheranTranslate="lutheranappApp.contribution.home.createOrEditLabel"
+      >
+        Create or edit a Contribution
+      </h2>
+
+      <div>
+        <lutheran-alert-error></lutheran-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" lutheranTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.contribution.contributionType" for="field_contributionType"
+            >Contribution Type</label
+          >
+          <select
+            class="form-control"
+            name="contributionType"
+            formControlName="contributionType"
+            id="field_contributionType"
+            data-cy="contributionType"
+          >
+            <option [ngValue]="null">{{ 'lutheranappApp.ContributionType.null' | translate }}</option>
+            <option *ngFor="let contributionType of contributionTypeValues" [value]="contributionType">
+              {{ 'lutheranappApp.ContributionType.' + contributionType | translate }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              editForm.get('contributionType')!.invalid &&
+              (editForm.get('contributionType')!.dirty || editForm.get('contributionType')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('contributionType')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.contribution.frequency" for="field_frequency">Frequency</label>
+          <select class="form-control" name="frequency" formControlName="frequency" id="field_frequency" data-cy="frequency">
+            <option [ngValue]="null">{{ 'lutheranappApp.Frequency.null' | translate }}</option>
+            <option *ngFor="let frequency of frequencyValues" [value]="frequency">
+              {{ 'lutheranappApp.Frequency.' + frequency | translate }}
+            </option>
+          </select>
+          <div *ngIf="editForm.get('frequency')!.invalid && (editForm.get('frequency')!.dirty || editForm.get('frequency')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('frequency')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.contribution.month" for="field_month">Month</label>
+          <div class="input-group">
+            <input
+              id="field_month"
+              data-cy="month"
+              type="text"
+              class="form-control"
+              name="month"
+              ngbDatepicker
+              #monthDp="ngbDatepicker"
+              formControlName="month"
+            />
+            <button type="button" class="btn btn-secondary" (click)="monthDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('month')!.invalid && (editForm.get('month')!.dirty || editForm.get('month')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('month')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.contribution.amount" for="field_amount">Amount</label>
+          <input type="number" class="form-control" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+          <div *ngIf="editForm.get('amount')!.invalid && (editForm.get('amount')!.dirty || editForm.get('amount')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('amount')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('amount')?.errors?.number"
+              lutheranTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.contribution.congregant" for="field_congregant">Congregant</label>
+          <select
+            class="form-control"
+            id="field_congregant"
+            data-cy="congregant"
+            name="congregant"
+            formControlName="congregant"
+            [compareWith]="compareCongregant"
+          >
+            <option *ngIf="editForm.get(['congregant'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="congregantOption" *ngFor="let congregantOption of congregantsSharedCollection">
+              {{ congregantOption.surname }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['congregant'])!.invalid && (editForm.get(['congregant'])!.dirty || editForm.get(['congregant'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['congregant'])?.errors?.required"
+            lutheranTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

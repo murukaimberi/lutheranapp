@@ -1,0 +1,26 @@
+{
+  "lutheranappApp": {
+    "marriageHistory": {
+      "home": {
+        "title": "Marriage Histories",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Marriage History erstellen",
+        "createOrEditLabel": "Marriage History erstellen oder bearbeiten",
+        "notFound": "Keine Marriage Histories gefunden"
+      },
+      "created": "Marriage History erstellt mit ID {{ param }}",
+      "updated": "Marriage History aktualisiert mit ID {{ param }}",
+      "deleted": "Marriage History gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Marriage History {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Marriage History"
+      },
+      "id": "ID",
+      "marriageDate": "Marriage Date",
+      "parishMarriedAt": "Parish Married At",
+      "congregant": "Congregant"
+    }
+  }
+}

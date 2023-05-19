@@ -1,0 +1,27 @@
+{
+  "lutheranappApp": {
+    "dependant": {
+      "home": {
+        "title": "Dependants",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Dependant erstellen",
+        "createOrEditLabel": "Dependant erstellen oder bearbeiten",
+        "notFound": "Keine Dependants gefunden"
+      },
+      "created": "Dependant erstellt mit ID {{ param }}",
+      "updated": "Dependant aktualisiert mit ID {{ param }}",
+      "deleted": "Dependant gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Dependant {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Dependant"
+      },
+      "id": "ID",
+      "fullNames": "Full Names",
+      "dateOfBirth": "Date Of Birth",
+      "gender": "Gender",
+      "congregant": "Congregant"
+    }
+  }
+}

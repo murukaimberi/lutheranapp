@@ -1,0 +1,28 @@
+<form *ngIf="congregant" name="deleteForm" (ngSubmit)="confirmDelete(congregant.id!)">
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="congregantDeleteDialogHeading" lutheranTranslate="entity.delete.title">Confirm delete operation</h4>
+
+    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <lutheran-alert-error></lutheran-alert-error>
+    <p
+      id="lutheran-delete-congregant-heading"
+      lutheranTranslate="lutheranappApp.congregant.delete.question"
+      [translateValues]="{ id: congregant.id }"
+    >
+      Are you sure you want to delete Congregant {{ congregant.id }}?
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.cancel">Cancel</span>
+    </button>
+
+    <button id="lutheran-confirm-delete-congregant" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+      <fa-icon icon="times"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.delete">Delete</span>
+    </button>
+  </div>
+</form>

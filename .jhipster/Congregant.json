@@ -1,0 +1,123 @@
+{
+  "applications": ["lutheranapp"],
+  "changelogDate": "20230518162059",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "congregant",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "firstNames",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "surname",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "dob",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "gender",
+      "fieldType": "Gender",
+      "fieldValues": "MALE,FEMALE,NOT_MENTIONED"
+    },
+    {
+      "fieldName": "profession",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "maritalStatus",
+      "fieldType": "MaritalStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "MARRIED,DEVORCED,WIDOWED,SINGLE,NOT_STATED"
+    },
+    {
+      "fieldName": "profilePicture",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image",
+      "fieldValidateRules": ["maxbytes"],
+      "fieldValidateRulesMaxbytes": "1000000"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Congregant",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "marriageHistory",
+      "otherEntityRelationshipName": "congregant",
+      "ownerSide": true,
+      "relationshipName": "marriageHistory",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "baptismHistory",
+      "otherEntityRelationshipName": "congragant",
+      "ownerSide": true,
+      "relationshipName": "baptismHistory",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "dependant",
+      "otherEntityRelationshipName": "congregant",
+      "relationshipName": "dependencies",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "location",
+      "otherEntityRelationshipName": "congregant",
+      "relationshipName": "addresses",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "contribution",
+      "otherEntityRelationshipName": "congregant",
+      "relationshipName": "contributions",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "post",
+      "otherEntityRelationshipName": "congregant",
+      "relationshipName": "posts",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "league",
+      "otherEntityRelationshipName": "congregants",
+      "ownerSide": false,
+      "relationshipName": "leagues",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="location">
+      <h2 data-cy="locationDetailsHeading"><span lutheranTranslate="lutheranappApp.location.detail.title">Location</span></h2>
+
+      <hr />
+
+      <lutheran-alert-error></lutheran-alert-error>
+
+      <lutheran-alert></lutheran-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span lutheranTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ location.id }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.location.streetAddress">Street Address</span></dt>
+        <dd>
+          <span>{{ location.streetAddress }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.location.postalCode">Postal Code</span></dt>
+        <dd>
+          <span>{{ location.postalCode }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.location.city">City</span></dt>
+        <dd>
+          <span>{{ location.city }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.location.stateProvince">State Province</span></dt>
+        <dd>
+          <span>{{ location.stateProvince }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.location.country">Country</span></dt>
+        <dd>
+          <div *ngIf="location.country">
+            <a [routerLink]="['/country', location.country.id, 'view']">{{ location.country.id }}</a>
+          </div>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.location.congregant">Congregant</span></dt>
+        <dd>
+          <div *ngIf="location.congregant">
+            <a [routerLink]="['/congregant', location.congregant.id, 'view']">{{ location.congregant.surname }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/location', location.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

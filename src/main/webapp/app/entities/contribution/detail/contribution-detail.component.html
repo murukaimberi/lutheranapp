@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="contribution">
+      <h2 data-cy="contributionDetailsHeading"><span lutheranTranslate="lutheranappApp.contribution.detail.title">Contribution</span></h2>
+
+      <hr />
+
+      <lutheran-alert-error></lutheran-alert-error>
+
+      <lutheran-alert></lutheran-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span lutheranTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ contribution.id }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.contribution.contributionType">Contribution Type</span></dt>
+        <dd>
+          <span lutheranTranslate="{{ 'lutheranappApp.ContributionType.' + contribution.contributionType }}">{{
+            contribution.contributionType
+          }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.contribution.frequency">Frequency</span></dt>
+        <dd>
+          <span lutheranTranslate="{{ 'lutheranappApp.Frequency.' + contribution.frequency }}">{{ contribution.frequency }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.contribution.month">Month</span></dt>
+        <dd>
+          <span>{{ contribution.month | formatMediumDate }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.contribution.amount">Amount</span></dt>
+        <dd>
+          <span>{{ contribution.amount }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.contribution.congregant">Congregant</span></dt>
+        <dd>
+          <div *ngIf="contribution.congregant">
+            <a [routerLink]="['/congregant', contribution.congregant.id, 'view']">{{ contribution.congregant.surname }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/contribution', contribution.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

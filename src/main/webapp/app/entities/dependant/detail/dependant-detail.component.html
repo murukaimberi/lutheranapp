@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="dependant">
+      <h2 data-cy="dependantDetailsHeading"><span lutheranTranslate="lutheranappApp.dependant.detail.title">Dependant</span></h2>
+
+      <hr />
+
+      <lutheran-alert-error></lutheran-alert-error>
+
+      <lutheran-alert></lutheran-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span lutheranTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ dependant.id }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.dependant.fullNames">Full Names</span></dt>
+        <dd>
+          <span>{{ dependant.fullNames }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.dependant.dateOfBirth">Date Of Birth</span></dt>
+        <dd>
+          <span>{{ dependant.dateOfBirth | formatMediumDate }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.dependant.gender">Gender</span></dt>
+        <dd>
+          <span lutheranTranslate="{{ 'lutheranappApp.Gender.' + dependant.gender }}">{{ dependant.gender }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.dependant.congregant">Congregant</span></dt>
+        <dd>
+          <div *ngIf="dependant.congregant">
+            <a [routerLink]="['/congregant', dependant.congregant.id, 'view']">{{ dependant.congregant.surname }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/dependant', dependant.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

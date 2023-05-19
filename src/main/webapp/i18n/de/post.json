@@ -1,0 +1,29 @@
+{
+  "lutheranappApp": {
+    "post": {
+      "home": {
+        "title": "Posts",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Post erstellen",
+        "createOrEditLabel": "Post erstellen oder bearbeiten",
+        "notFound": "Keine Posts gefunden"
+      },
+      "created": "Post erstellt mit ID {{ param }}",
+      "updated": "Post aktualisiert mit ID {{ param }}",
+      "deleted": "Post gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Post {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Post"
+      },
+      "id": "ID",
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "description": "Description",
+      "postedDate": "Posted Date",
+      "image": "Image",
+      "congregant": "Congregant"
+    }
+  }
+}

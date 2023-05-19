@@ -1,0 +1,12 @@
+{
+  "lutheranappApp": {
+    "ContributionType": {
+      "null": "",
+      "REGISTRATION": "REGISTRATION",
+      "ANNUAL_DUES": "ANNUAL_DUES",
+      "PLEDGES": "PLEDGES",
+      "TITHE": "TITHE",
+      "HAVERST": "HAVERST"
+    }
+  }
+}

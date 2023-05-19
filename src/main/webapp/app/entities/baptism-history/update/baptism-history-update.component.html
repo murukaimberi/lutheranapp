@@ -1,0 +1,203 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="lutheran-baptism-history-heading"
+        data-cy="BaptismHistoryCreateUpdateHeading"
+        lutheranTranslate="lutheranappApp.baptismHistory.home.createOrEditLabel"
+      >
+        Create or edit a Baptism History
+      </h2>
+
+      <div>
+        <lutheran-alert-error></lutheran-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" lutheranTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.baptismHistory.parishName" for="field_parishName">Parish Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="parishName"
+            id="field_parishName"
+            data-cy="parishName"
+            formControlName="parishName"
+          />
+          <div *ngIf="editForm.get('parishName')!.invalid && (editForm.get('parishName')!.dirty || editForm.get('parishName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('parishName')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('parishName')?.errors?.maxlength"
+              lutheranTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.baptismHistory.baptismDate" for="field_baptismDate"
+            >Baptism Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_baptismDate"
+              data-cy="baptismDate"
+              type="text"
+              class="form-control"
+              name="baptismDate"
+              ngbDatepicker
+              #baptismDateDp="ngbDatepicker"
+              formControlName="baptismDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="baptismDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="editForm.get('baptismDate')!.invalid && (editForm.get('baptismDate')!.dirty || editForm.get('baptismDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('baptismDate')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.baptismHistory.confirmedDate" for="field_confirmedDate"
+            >Confirmed Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_confirmedDate"
+              data-cy="confirmedDate"
+              type="text"
+              class="form-control"
+              name="confirmedDate"
+              ngbDatepicker
+              #confirmedDateDp="ngbDatepicker"
+              formControlName="confirmedDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="confirmedDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          <div
+            *ngIf="
+              editForm.get('confirmedDate')!.invalid && (editForm.get('confirmedDate')!.dirty || editForm.get('confirmedDate')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('confirmedDate')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.baptismHistory.parishBaptisedAt" for="field_parishBaptisedAt"
+            >Parish Baptised At</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="parishBaptisedAt"
+            id="field_parishBaptisedAt"
+            data-cy="parishBaptisedAt"
+            formControlName="parishBaptisedAt"
+          />
+          <div
+            *ngIf="
+              editForm.get('parishBaptisedAt')!.invalid &&
+              (editForm.get('parishBaptisedAt')!.dirty || editForm.get('parishBaptisedAt')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('parishBaptisedAt')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('parishBaptisedAt')?.errors?.maxlength"
+              lutheranTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be longer than 100 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.baptismHistory.prishedConfirmedAt" for="field_prishedConfirmedAt"
+            >Prished Confirmed At</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="prishedConfirmedAt"
+            id="field_prishedConfirmedAt"
+            data-cy="prishedConfirmedAt"
+            formControlName="prishedConfirmedAt"
+          />
+          <div
+            *ngIf="
+              editForm.get('prishedConfirmedAt')!.invalid &&
+              (editForm.get('prishedConfirmedAt')!.dirty || editForm.get('prishedConfirmedAt')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('prishedConfirmedAt')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('prishedConfirmedAt')?.errors?.maxlength"
+              lutheranTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 100 }"
+            >
+              This field cannot be longer than 100 characters.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

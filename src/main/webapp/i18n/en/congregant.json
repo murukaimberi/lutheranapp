@@ -1,0 +1,40 @@
+{
+  "lutheranappApp": {
+    "congregant": {
+      "home": {
+        "title": "Congregants",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Congregant",
+        "createOrEditLabel": "Create or edit a Congregant",
+        "notFound": "No Congregants found"
+      },
+      "created": "A new Congregant is created with identifier {{ param }}",
+      "updated": "A Congregant is updated with identifier {{ param }}",
+      "deleted": "A Congregant is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Congregant {{ id }}?"
+      },
+      "detail": {
+        "title": "Congregant"
+      },
+      "id": "ID",
+      "title": "Title",
+      "firstNames": "First Names",
+      "surname": "Surname",
+      "email": "Email",
+      "dob": "Dob",
+      "gender": "Gender",
+      "profession": "Profession",
+      "maritalStatus": "Marital Status",
+      "profilePicture": "Profile Picture",
+      "marriageHistory": "Marriage History",
+      "baptismHistory": "Baptism History",
+      "user": "User",
+      "dependencies": "Dependencies",
+      "addresses": "Addresses",
+      "contributions": "Contributions",
+      "posts": "Posts",
+      "leagues": "Leagues"
+    }
+  }
+}

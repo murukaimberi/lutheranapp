@@ -1,0 +1,47 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="league">
+      <h2 data-cy="leagueDetailsHeading"><span lutheranTranslate="lutheranappApp.league.detail.title">League</span></h2>
+
+      <hr />
+
+      <lutheran-alert-error></lutheran-alert-error>
+
+      <lutheran-alert></lutheran-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span lutheranTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ league.id }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.league.name">Name</span></dt>
+        <dd>
+          <span>{{ league.name }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.league.description">Description</span></dt>
+        <dd>
+          <span>{{ league.description }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.league.createdDate">Created Date</span></dt>
+        <dd>
+          <span>{{ league.createdDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span lutheranTranslate="lutheranappApp.league.congregants">Congregants</span></dt>
+        <dd>
+          <span *ngFor="let congregants of league.congregants; let last = last">
+            <a [routerLink]="['/congregant', congregants.id, 'view']">{{ congregants.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/league', league.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

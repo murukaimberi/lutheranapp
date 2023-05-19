@@ -1,0 +1,98 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="lutheran-marriage-history-heading"
+        data-cy="MarriageHistoryCreateUpdateHeading"
+        lutheranTranslate="lutheranappApp.marriageHistory.home.createOrEditLabel"
+      >
+        Create or edit a Marriage History
+      </h2>
+
+      <div>
+        <lutheran-alert-error></lutheran-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" lutheranTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.marriageHistory.marriageDate" for="field_marriageDate"
+            >Marriage Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_marriageDate"
+              data-cy="marriageDate"
+              type="text"
+              class="form-control"
+              name="marriageDate"
+              ngbDatepicker
+              #marriageDateDp="ngbDatepicker"
+              formControlName="marriageDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="marriageDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          <div
+            *ngIf="editForm.get('marriageDate')!.invalid && (editForm.get('marriageDate')!.dirty || editForm.get('marriageDate')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('marriageDate')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" lutheranTranslate="lutheranappApp.marriageHistory.parishMarriedAt" for="field_parishMarriedAt"
+            >Parish Married At</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="parishMarriedAt"
+            id="field_parishMarriedAt"
+            data-cy="parishMarriedAt"
+            formControlName="parishMarriedAt"
+          />
+          <div
+            *ngIf="
+              editForm.get('parishMarriedAt')!.invalid &&
+              (editForm.get('parishMarriedAt')!.dirty || editForm.get('parishMarriedAt')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('parishMarriedAt')?.errors?.required"
+              lutheranTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

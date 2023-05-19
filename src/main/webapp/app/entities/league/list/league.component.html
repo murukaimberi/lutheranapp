@@ -1,0 +1,110 @@
+<div>
+  <h2 id="page-heading" data-cy="LeagueHeading">
+    <span lutheranTranslate="lutheranappApp.league.home.title">Leagues</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span lutheranTranslate="lutheranappApp.league.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-league"
+        [routerLink]="['/league/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span lutheranTranslate="lutheranappApp.league.home.createLabel"> Create a new League </span>
+      </button>
+    </div>
+  </h2>
+
+  <lutheran-alert-error></lutheran-alert-error>
+
+  <lutheran-alert></lutheran-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="leagues?.length === 0">
+    <span lutheranTranslate="lutheranappApp.league.home.notFound">No Leagues found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="leagues && leagues.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr lutheranSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" lutheranSortBy="id">
+            <div class="d-flex">
+              <span lutheranTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="name">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.league.name">Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="description">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.league.description">Description</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" lutheranSortBy="createdDate">
+            <div class="d-flex">
+              <span lutheranTranslate="lutheranappApp.league.createdDate">Created Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let league of leagues; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/league', league.id, 'view']">{{ league.id }}</a>
+          </td>
+          <td>{{ league.name }}</td>
+          <td>{{ league.description }}</td>
+          <td>{{ league.createdDate | formatMediumDate }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/league', league.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" lutheranTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/league', league.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" lutheranTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(league)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" lutheranTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="leagues && leagues.length > 0">
+    <div class="d-flex justify-content-center">
+      <lutheran-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></lutheran-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

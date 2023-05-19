@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Congregant.
+    -->
+    <changeSet id="20230518162059-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="marriage_history_id"
+                                 baseTableName="congregant"
+                                 constraintName="fk_congregant__marriage_history_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="marriage_history"/>
+
+        <addForeignKeyConstraint baseColumnNames="baptism_history_id"
+                                 baseTableName="congregant"
+                                 constraintName="fk_congregant__baptism_history_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="baptism_history"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="congregant"
+                                 constraintName="fk_congregant__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lutheran_user"/>
+    </changeSet>
+</databaseChangeLog>

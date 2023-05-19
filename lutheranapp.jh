@@ -1,0 +1,157 @@
+application {
+  config {
+    applicationType monolith
+    authenticationType jwt
+    baseName lutheranapp
+    blueprints []
+    buildTool maven
+    cacheProvider hazelcast
+    clientFramework angularX
+    clientPackageManager npm
+    clientTheme none
+    creationTimestamp 1684426799592
+    databaseType sql
+    devDatabaseType postgresql
+    dtoSuffix DTO
+    enableGradleEnterprise false
+    enableHibernateCache true
+    enableSwaggerCodegen false
+    enableTranslation true
+    gradleEnterpriseHost ""
+    jhiPrefix lutheran
+    jhipsterVersion "7.9.3"
+    jwtSecretKey "OWMwYWE4ZjFmYTVjMmMzZWIzNjQ5NTI5ZDY5NTk1OWJiZmY5MmY5OGQzYTQ3NjBhZGZjNTc4MDkxYzg1MjE2MzA3ZDQ1NTc5MTY3YTY3NDkxNDhmMzdlODdlNTdhYTRlYTIyZmRlYjFlNzBjOGVkODRiZmEwMGVhMTZlYjBmYTM="
+    languages [en, de]
+    messageBroker false
+    microfrontend false
+    microfrontends []
+    nativeLanguage en
+    otherModules []
+    packageName com.lutheran.app
+    prodDatabaseType postgresql
+    reactive false
+    searchEngine false
+    serverPort 8080
+    serviceDiscoveryType no
+    skipClient false
+    skipUserManagement false
+    testFrameworks [gatling]
+    websocket false
+    withAdminUi true
+  }
+  entities *
+}
+
+entity Congregant {
+    title String required maxlength(50)
+    firstNames String required maxlength(50)
+    surname String required maxlength(50)
+    email String required maxlength(100)
+    dob LocalDate required
+    gender Gender
+    profession String maxlength(100)
+    maritalStatus MaritalStatus required
+    profilePicture ImageBlob maxbytes(1000000)
+}
+
+entity Post {
+    title String required maxlength(250)
+    subtitle String maxlength(250)
+    description TextBlob required
+    postedDate LocalDate required
+    image ImageBlob maxbytes(2000000)
+}
+
+entity BaptismHistory {
+    parishName String required maxlength(50)
+    baptismDate LocalDate required
+    confirmedDate LocalDate required
+    parishBaptisedAt String required maxlength(100)
+    prishedConfirmedAt String required maxlength(100)
+}
+
+entity MarriageHistory {
+    marriageDate LocalDate required
+    parishMarriedAt String required
+}
+
+entity Dependant {
+    fullNames String required maxlength(250)
+    dateOfBirth LocalDate required
+    gender Gender required
+}
+
+entity League {
+    name String required maxlength(100)
+    description TextBlob required
+    createdDate LocalDate required
+}
+
+entity Country {
+    countryName String
+}
+
+entity Region {
+    regionName String
+}
+// an ignored comment
+/** not an ignored comment */
+entity Location {
+    streetAddress String,
+    postalCode String,
+    city String,
+    stateProvince String
+}
+
+entity Contribution {
+    contributionType ContributionType required
+    frequency Frequency required
+    month LocalDate required
+    amount BigDecimal required
+}
+
+enum Gender {
+    MALE, FEMALE, NOT_MENTIONED
+}
+
+
+enum MaritalStatus {
+    MARRIED, DEVORCED, WIDOWED, SINGLE, NOT_STATED
+}
+
+enum ContributionType {
+    REGISTRATION, ANNUAL_DUES, PLEDGES, TITHE, HAVERST
+}
+
+enum Frequency {
+    YEARLY, LUMP_SUM, MONTHLY
+}
+
+relationship OneToOne {
+    Country{region} to Region
+    Location{country} to Country
+    Congregant{marriageHistory} to MarriageHistory{congregant(surname) required}
+    Congregant{baptismHistory} to BaptismHistory{congragant(surname) required}
+}
+
+// defining multiple OneToMany relationships with comments
+relationship ManyToOne {
+    Dependant{congregant(surname) required} to Congregant{dependencies}
+    Location{congregant(surname) required} to Congregant{addresses}
+    Contribution{congregant(surname) required} to Congregant{contributions}
+    Post{congregant(surname) required} to Congregant{posts}
+}
+
+relationship ManyToMany {
+    League{congregants} to Congregant{leagues}
+}
+
+relationship OneToOne {
+    Congregant{user(login) required} to User
+}
+
+paginate all with pagination
+
+dto * with mapstruct
+
+service all with serviceImpl

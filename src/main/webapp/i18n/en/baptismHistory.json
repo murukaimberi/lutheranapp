@@ -1,0 +1,29 @@
+{
+  "lutheranappApp": {
+    "baptismHistory": {
+      "home": {
+        "title": "Baptism Histories",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Baptism History",
+        "createOrEditLabel": "Create or edit a Baptism History",
+        "notFound": "No Baptism Histories found"
+      },
+      "created": "A new Baptism History is created with identifier {{ param }}",
+      "updated": "A Baptism History is updated with identifier {{ param }}",
+      "deleted": "A Baptism History is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Baptism History {{ id }}?"
+      },
+      "detail": {
+        "title": "Baptism History"
+      },
+      "id": "ID",
+      "parishName": "Parish Name",
+      "baptismDate": "Baptism Date",
+      "confirmedDate": "Confirmed Date",
+      "parishBaptisedAt": "Parish Baptised At",
+      "prishedConfirmedAt": "Prished Confirmed At",
+      "congragant": "Congragant"
+    }
+  }
+}

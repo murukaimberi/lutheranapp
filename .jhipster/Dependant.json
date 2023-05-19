@@ -1,0 +1,42 @@
+{
+  "applications": ["lutheranapp"],
+  "changelogDate": "20230518162459",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "dependant",
+  "fields": [
+    {
+      "fieldName": "fullNames",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "250"
+    },
+    {
+      "fieldName": "dateOfBirth",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "gender",
+      "fieldType": "Gender",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "MALE,FEMALE,NOT_MENTIONED"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Dependant",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "surname",
+      "otherEntityName": "congregant",
+      "otherEntityRelationshipName": "dependencies",
+      "relationshipName": "congregant",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

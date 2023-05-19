@@ -1,0 +1,28 @@
+{
+  "lutheranappApp": {
+    "contribution": {
+      "home": {
+        "title": "Contributions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Contribution",
+        "createOrEditLabel": "Create or edit a Contribution",
+        "notFound": "No Contributions found"
+      },
+      "created": "A new Contribution is created with identifier {{ param }}",
+      "updated": "A Contribution is updated with identifier {{ param }}",
+      "deleted": "A Contribution is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Contribution {{ id }}?"
+      },
+      "detail": {
+        "title": "Contribution"
+      },
+      "id": "ID",
+      "contributionType": "Contribution Type",
+      "frequency": "Frequency",
+      "month": "Month",
+      "amount": "Amount",
+      "congregant": "Congregant"
+    }
+  }
+}
