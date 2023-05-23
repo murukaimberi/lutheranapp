@@ -1,142 +1,66 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <form name="editForm" (submit)="save()" [formGroup]="editForm" class="example-form">
       <h2 id="lutheran-league-heading" data-cy="LeagueCreateUpdateHeading" lutheranTranslate="lutheranappApp.league.home.createOrEditLabel">
         Create or edit a League
       </h2>
-
-      <div>
-        <lutheran-alert-error></lutheran-alert-error>
-
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" lutheranTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" lutheranTranslate="lutheranappApp.league.name" for="field_name">Name</label>
-          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-          <mat-form-field class="example-full-width">
-            <mat-label lutheranTranslate="lutheranappApp.league.name" for="field_name">Name</mat-label>
-            <input matInput placeholder="Ex. Pizza" type="text" name="name" id="field_name" data-cy="name" formControlName="name" />
-            <mat-error *ngIf="editForm.get('name')?.errors?.required" lutheranTranslate="entity.validation.required">
-              This field is <strong>required</strong>.
+      <lutheran-alert-error></lutheran-alert-error>
+      <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+        <label class="form-label" lutheranTranslate="global.field.id" for="field_id">ID</label>
+        <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>League Name</mat-label>
+            <input type="text" matInput formControlName="name" placeholder="Ex. Women's league">
+            <mat-error *ngIf="editForm.get('name')?.errors?.required">
+              Name is <strong>required</strong>.
             </mat-error>
-            <mat-error *ngIf="editForm.get('name')?.errors?.maxlength" lutheranTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
-              This field cannot be longer than 100 characters.
+            <mat-error *ngIf="editForm.get('name')?.errors?.maxlength">
+              Name can not be more than 100 characters
             </mat-error>
           </mat-form-field>
-          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('name')?.errors?.required"
-              lutheranTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('name')?.errors?.maxlength"
-              lutheranTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 100 }"
-            >
-              This field cannot be longer than 100 characters.
-            </small>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" lutheranTranslate="lutheranappApp.league.description" for="field_description">Description</label>
-          <textarea
-            class="form-control"
-            name="description"
-            id="field_description"
-            data-cy="description"
-            formControlName="description"
-          ></textarea>
-          <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('description')?.errors?.required"
-              lutheranTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-          </div>
-        </div>
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <mat-label>Favorite food</mat-label>
-            <input matInput placeholder="Ex. Pizza" value="Sushi">
-          </mat-form-field>
-
-          <mat-form-field class="example-full-width">
-            <mat-label>Leave a comment</mat-label>
-            <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-          </mat-form-field>
-        </form>
-
-        <div class="row mb-3">
-          <label class="form-label" lutheranTranslate="lutheranappApp.league.createdDate" for="field_createdDate">Created Date</label>
-          <div class="input-group">
-            <input
-              id="field_createdDate"
-              data-cy="createdDate"
-              type="text"
-              class="form-control"
-              name="createdDate"
-              ngbDatepicker
-              #createdDateDp="ngbDatepicker"
-              formControlName="createdDate"
-            />
-            <button type="button" class="btn btn-secondary" (click)="createdDateDp.toggle()">
-              <fa-icon icon="calendar-alt"></fa-icon>
-            </button>
-          </div>
-          <div *ngIf="editForm.get('createdDate')!.invalid && (editForm.get('createdDate')!.dirty || editForm.get('createdDate')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('createdDate')?.errors?.required"
-              lutheranTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label lutheranTranslate="lutheranappApp.league.congregants" for="field_congregants">Congregants</label>
-          <select
-            class="form-control"
-            id="field_congregants"
-            data-cy="congregants"
-            multiple
-            name="congregants"
-            formControlName="congregants"
-            [compareWith]="compareCongregant"
-          >
-            <option [ngValue]="congregantOption" *ngFor="let congregantOption of congregantsSharedCollection">
-              {{ congregantOption.id }}
-            </option>
-          </select>
         </div>
       </div>
-
-      <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.cancel">Cancel</span>
-        </button>
-
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span lutheranTranslate="entity.action.save">Save</span>
-        </button>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label lutheranTranslate="lutheranappApp.league.description">League Description</mat-label>
+            <textarea formControlName="description" matInput placeholder="Ex. This is an organisation that..."></textarea>
+            <mat-error lutheranTranslate="entity.validation.required" *ngIf="editForm.get('description')?.errors?.required">
+              Description is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Custom calendar header</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="createdDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+<!--        <div class="col-md-6">-->
+<!--          <mat-form-field appearance="outline">-->
+<!--            <mat-label>Favorite food</mat-label>-->
+<!--            <mat-select formControlName="congregants">-->
+<!--              <mat-option *ngFor="let congregantOption of congregantsSharedCollection" [value]="congregantOption">-->
+<!--                {{ congregantOption.surname }}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+      </div>
+      <button mat-raised-button type="button" color="accent">
+        <span lutheranTranslate="entity.action.cancel">Cancel</span>
+      </button>
+      <button mat-raised-button type="submit" [disabled]="editForm.invalid || isSaving" color="primary">
+        <span lutheranTranslate="entity.action.save">Save</span>
+      </button>
     </form>
   </div>
 </div>

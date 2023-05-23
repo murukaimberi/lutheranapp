@@ -68,6 +68,7 @@ export class LeagueUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
+    console.error(`Form DATA ${JSON.stringify(this.editForm.getRawValue())}`);
     const league = this.leagueFormService.getLeague(this.editForm);
     if (league.id !== null) {
       this.subscribeToSaveResponse(this.leagueService.update(league));

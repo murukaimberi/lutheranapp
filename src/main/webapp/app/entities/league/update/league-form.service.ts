@@ -55,6 +55,7 @@ export class LeagueFormService {
   }
 
   getLeague(form: LeagueFormGroup): ILeague | NewLeague {
+    console.error(`${JSON.stringify(form.getRawValue())}`);
     return form.getRawValue() as ILeague | NewLeague;
   }
 

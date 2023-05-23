@@ -15,6 +15,7 @@ import { DataUtils } from 'app/core/util/data-util.service';
 @Component({
   selector: 'lutheran-league',
   templateUrl: './league.component.html',
+  styleUrls: ['./league.component.scss']
 })
 export class LeagueComponent implements OnInit {
   leagues?: ILeague[];

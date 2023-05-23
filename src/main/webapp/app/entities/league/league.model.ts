@@ -5,7 +5,7 @@ export interface ILeague {
   id: number;
   name?: string | null;
   description?: string | null;
-  createdDate?: dayjs.Dayjs | null;
+  createdDate?: Date | null;
   congregants?: Pick<ICongregant, 'id'>[] | null;
 }
 

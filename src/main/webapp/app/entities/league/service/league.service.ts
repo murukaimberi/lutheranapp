@@ -100,14 +100,14 @@ export class LeagueService {
   protected convertDateFromClient<T extends ILeague | NewLeague | PartialUpdateLeague>(league: T): RestOf<T> {
     return {
       ...league,
-      createdDate: league.createdDate?.format(DATE_FORMAT) ?? null,
+      createdDate: dayjs(league.createdDate).format(DATE_FORMAT) ?? null,
     };
   }
 
   protected convertDateFromServer(restLeague: RestLeague): ILeague {
     return {
       ...restLeague,
-      createdDate: restLeague.createdDate ? dayjs(restLeague.createdDate) : undefined,
+      createdDate: restLeague.createdDate ? dayjs(restLeague.createdDate).toDate() : undefined,
     };
   }
 
